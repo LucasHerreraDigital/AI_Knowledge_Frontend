@@ -22,6 +22,8 @@ const ChatInput = ({
 
     if (!content || loading) return;
 
+    setMessage("")
+
     await onSend(content);
 
     setMessage("");

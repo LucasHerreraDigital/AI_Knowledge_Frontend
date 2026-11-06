@@ -1,47 +1,29 @@
 import { useEffect, useRef, useState } from "react";
-import {
-  MoreVertical,
-  Pencil,
-  Trash2,
-} from "lucide-react";
+import { MoreVertical, Pencil, Trash2 } from "lucide-react";
 
 interface ChatActionsProps {
   onRename: () => void;
   onDelete: () => void;
 }
 
-const ChatActions = ({
-  onRename,
-  onDelete,
-}: ChatActionsProps) => {
+const ChatActions = ({ onRename, onDelete }: ChatActionsProps) => {
   const [open, setOpen] = useState(false);
-  const containerRef =
-    useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const handleClickOutside = (
-      event: MouseEvent
-    ) => {
+    const handleClickOutside = (event: MouseEvent) => {
       if (
         containerRef.current &&
-        !containerRef.current.contains(
-          event.target as Node
-        )
+        !containerRef.current.contains(event.target as Node)
       ) {
         setOpen(false);
       }
     };
 
-    document.addEventListener(
-      "mousedown",
-      handleClickOutside
-    );
+    document.addEventListener("mousedown", handleClickOutside);
 
     return () => {
-      document.removeEventListener(
-        "mousedown",
-        handleClickOutside
-      );
+      document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
 
@@ -49,15 +31,11 @@ const ChatActions = ({
     <div
       ref={containerRef}
       className="relative"
-      onClick={(event) =>
-        event.stopPropagation()
-      }
+      onClick={(event) => event.stopPropagation()}
     >
       <button
         type="button"
-        onClick={() =>
-          setOpen((prev) => !prev)
-        }
+        onClick={() => setOpen((prev) => !prev)}
         className="
           rounded-lg
           p-1.5

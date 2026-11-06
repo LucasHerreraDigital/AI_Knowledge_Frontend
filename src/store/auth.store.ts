@@ -8,28 +8,36 @@ interface AuthUser {
 
 interface AuthStore {
   user: AuthUser | null;
-  token: string | null;
+  accessToken: string | null;
+  initialized: boolean;
 
-  setAuth: (user: AuthUser, token: string) => void;
-  setToken:(token:string)=>void
-  logout: () => void;
+  setAuth: (user: AuthUser, accessToken: string) => void;
+  setAccessToken: (accessToken: string) => void;
+  clearAuth: () => void;
+  setInitialized: () => void
 }
 
-export const useAuthStore = create<AuthStore>((set)=>({
-  user:null,
-  token:null,
+export const useAuthStore = create<AuthStore>((set) => ({
+  user: null,
+  accessToken: null,
+  initialized: false,
 
-  setAuth:(user,token)=>
+  setAuth: (user, accessToken) =>
     set({
-      user,token
+      user,
+      accessToken,
     }),
-    setToken:(token)=>
+  setAccessToken: (accessToken) =>
+    set({
+      accessToken,
+    }),
+  clearAuth: () =>
+    set({
+      user: null,
+      accessToken: null,
+    }),
+    setInitialized: ()=>
       set({
-        token
-      }),
-      logout: ()=>
-        set({
-          user:null,
-          token:null
-        })
+        initialized:true
+      })
 }));

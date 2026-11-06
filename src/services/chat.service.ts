@@ -32,7 +32,7 @@ export const chatService = {
   updateChat: async (
     chatId: string,
     data: {
-      title?: string;
+      title: string;
     },
   ) => {
     return await updateChat(chatId, data);

@@ -47,14 +47,11 @@ const Dashboard = () => {
 
     const loadWorkspaceData = async () => {
       try {
-        const [documentsData, chatsData] = await Promise.all([
+        const [documentsData] = await Promise.all([
           documentService.getDocuments(selectedWorkspace.id),
-
-          chatService.getChatsByWorkspace(selectedWorkspace.id),
         ]);
 
         setDocuments(documentsData);
-        setChats(chatsData);
 
         // No abrimos ningún chat automáticamente
         selectChat(null);

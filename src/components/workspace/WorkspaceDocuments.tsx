@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import type { Document } from "../../types/document";
 
@@ -26,6 +26,8 @@ const WorkspaceDocuments = ({
   const [showAll, setShowAll] = useState(false);
   const [showUploadModal, setShowUploadModal] = useState(false);
 
+  const [loadingViewer,setLoadingViewer] = useState(false)
+
   const [selectedDocument, setSelectedDocument] = useState<Document | null>(
     null,
   );
@@ -38,9 +40,19 @@ const WorkspaceDocuments = ({
 
   const visibleDocuments = showAll ? documents : documents.slice(0, 3);
 
+  useEffect(() => {
+    return () => {
+      if (viewerUrl) {
+        URL.revokeObjectURL(viewerUrl);
+      }
+    };
+  }, [viewerUrl]);
+
   // VER DOCUMENTO
   const handleView = async (document: Document) => {
+    if(loadingViewer) return;
     try {
+      setLoadingViewer(true)
       const blob = await documentService.getDocumentFile(document.id);
 
       const url = URL.createObjectURL(blob);
@@ -50,6 +62,8 @@ const WorkspaceDocuments = ({
       setViewerOpen(true);
     } catch (error) {
       console.error("Error abriendo documento:", error);
+    }finally{
+      setLoadingViewer(false)
     }
   };
 

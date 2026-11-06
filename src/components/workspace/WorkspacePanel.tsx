@@ -7,6 +7,7 @@ import type { Chat } from "../../types/chat";
 
 import { useChatStore } from "../../store/chat.store";
 import { chatService } from "../../services/chat.service";
+import { useEffect } from "react";
 
 interface WorkspacePanelProps {
   workspace: Workspace;
@@ -29,6 +30,8 @@ const WorkspacePanel = ({
     (chat) => chat.workspaceId === workspace.id,
   );
 
+  const setChats = useChatStore((state)=>state.setChats)
+
   const handleSelectChat = async (chat: Chat) => {
     try {
       const completeChat = await chatService.getChatById(chat.id);
@@ -38,6 +41,11 @@ const WorkspacePanel = ({
       console.error("Error cargando chat:", error);
     }
   };
+  useEffect(()=>{
+    const chatsWorkspace = async ()=> {return await chatService.getChatsByWorkspace(workspace.id)}
+    const setNewChats = async ()=>{setChats(await chatsWorkspace())}
+    setNewChats()
+  },[workspace.id])
 
   return (
     <aside className="flex h-full w-[380px] shrink-0 flex-col overflow-hidden border-r border-slate-800 bg-[#0B1120]">

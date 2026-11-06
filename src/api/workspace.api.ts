@@ -3,7 +3,6 @@ import { api } from "./axios";
 interface CreateWorkspaceData {
   name: string;
   description?: string;
-  userId: string;
 }
 
 export const createWorkspace = async (
@@ -24,15 +23,6 @@ export const getWorkspaces = async () => {
   return response.data;
 };
 
-export const getWorkspacesByUser = async (
-  userId: string
-) => {
-  const response = await api.get(
-    `/workspaces/user/${userId}`
-  );
-
-  return response.data;
-};
 
 export const getWorkspaceById = async (
   workspaceId: string

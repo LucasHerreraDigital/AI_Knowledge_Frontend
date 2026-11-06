@@ -1,12 +1,6 @@
-import {
-  useEffect,
-  useState,
-} from "react";
+import { useEffect, useState } from "react";
 
-import {
-  LoaderCircle,
-  X,
-} from "lucide-react";
+import { LoaderCircle, X } from "lucide-react";
 
 interface RenameChatModalProps {
   open: boolean;
@@ -23,8 +17,7 @@ const RenameChatModal = ({
   onClose,
   onRename,
 }: RenameChatModalProps) => {
-  const [title, setTitle] =
-    useState(currentTitle);
+  const [title, setTitle] = useState(currentTitle);
 
   useEffect(() => {
     if (open) {
@@ -34,9 +27,7 @@ const RenameChatModal = ({
 
   if (!open) return null;
 
-  const handleSubmit = (
-    event: React.FormEvent
-  ) => {
+  const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
 
     const trimmedTitle = title.trim();
@@ -48,14 +39,9 @@ const RenameChatModal = ({
 
   return (
     <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/60 px-4 backdrop-blur-sm">
-
       <div className="w-full max-w-md rounded-2xl border border-slate-800 bg-[#0B1120] shadow-2xl">
-
         <div className="flex items-center justify-between border-b border-slate-800 px-6 py-4">
-
-          <h2 className="font-semibold text-white">
-            Renombrar chat
-          </h2>
+          <h2 className="font-semibold text-white">Renombrar chat</h2>
 
           <button
             type="button"
@@ -65,13 +51,10 @@ const RenameChatModal = ({
           >
             <X size={18} />
           </button>
-
         </div>
 
         <form onSubmit={handleSubmit}>
-
           <div className="p-6">
-
             <label className="mb-2 block text-sm text-slate-400">
               Nombre del chat
             </label>
@@ -79,29 +62,13 @@ const RenameChatModal = ({
             <input
               autoFocus
               value={title}
-              onChange={(event) =>
-                setTitle(event.target.value)
-              }
-              className="
-                w-full
-                rounded-lg
-                border
-                border-slate-700
-                bg-slate-900
-                px-4
-                py-3
-                text-sm
-                text-white
-                outline-none
-                transition
-                focus:border-indigo-500
+              onChange={(event) => setTitle(event.target.value)}
+              className="w-full rounded-lg border border-slate-700 bg-slate-900 px-4 py-3 text-sm text-white outline-none transition focus:border-indigo-500
               "
             />
-
           </div>
 
           <div className="flex justify-end gap-3 border-t border-slate-800 px-6 py-4">
-
             <button
               type="button"
               disabled={loading}
@@ -113,10 +80,7 @@ const RenameChatModal = ({
 
             <button
               type="submit"
-              disabled={
-                loading ||
-                !title.trim()
-              }
+              disabled={loading || !title.trim()}
               className="
                 flex
                 items-center
@@ -132,20 +96,11 @@ const RenameChatModal = ({
                 disabled:opacity-50
               "
             >
-              {loading && (
-                <LoaderCircle
-                  size={16}
-                  className="animate-spin"
-                />
-              )}
-
+              {loading && <LoaderCircle size={16} className="animate-spin" />}
               Guardar
             </button>
-
           </div>
-
         </form>
-
       </div>
     </div>
   );

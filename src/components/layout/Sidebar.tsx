@@ -46,7 +46,6 @@ const Sidebar = () => {
       const newWorkspace = await workspaceService.createWorkspace({
         name: data.name,
         description: data.description,
-        userId: authUser.id,
       });
 
       addWorkspace(newWorkspace);

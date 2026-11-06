@@ -1,6 +1,5 @@
 import {
   getWorkspaces,
-  getWorkspacesByUser,
   getWorkspaceById,
   createWorkspace,
   updateWorkspace,
@@ -12,7 +11,6 @@ import type { Workspace } from "../types/workspace";
 interface CreateWorkspaceData {
   name: string;
   description?: string;
-  userId: string;
 }
 
 interface UpdateWorkspaceData {
@@ -23,12 +21,6 @@ interface UpdateWorkspaceData {
 export const workspaceService = {
   getWorkspaces: async (): Promise<Workspace[]> => {
     return await getWorkspaces();
-  },
-
-  getWorkspacesByUser: async (
-    userId: string
-  ): Promise<Workspace[]> => {
-    return await getWorkspacesByUser(userId);
   },
 
   getWorkspaceById: async (

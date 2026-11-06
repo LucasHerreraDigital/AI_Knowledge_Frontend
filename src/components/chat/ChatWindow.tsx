@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 
+import type { Message } from "../../types/message";
+
 import { useChatStore } from "../../store/chat.store";
 import { chatService } from "../../services/chat.service";
 
@@ -9,6 +11,7 @@ import ChatInput from "./ChatInput";
 import TypingIndicator from "../common/TypingIndicator";
 import RenameChatModal from "./RenameChatModal";
 import DeleteChatModal from "./DeleteChatModal";
+
 
 const ChatWindow = () => {
   const [sending, setSending] = useState(false);
@@ -22,6 +25,8 @@ const ChatWindow = () => {
   const [renaming, setRenaming] = useState(false);
 
   const [deleting, setDeleting] = useState(false);
+
+  const [temporaryMessage,setTemporaryMessage]= useState<Message | null>(null)
 
   const selectedChat = useChatStore((state) => state.selectedChat);
 
@@ -55,15 +60,29 @@ const ChatWindow = () => {
     try {
       setSending(true);
 
+      const chatId = selectedChat.id
+
+      const optimisticMessage: Message = {
+        id:crypto.randomUUID(),
+        chatId: chatId,
+        role:"user",
+        content: content,
+        tokens:null,
+        model:null,
+        createdAt:new Date().toISOString()
+      } 
+
+      setTemporaryMessage(optimisticMessage)
+
       const updatedChat = await chatService.sendMessage(
         selectedChat.id,
         content,
       );
-
       updateChat(updatedChat);
     } catch (error) {
       console.error("Error enviando mensaje:", error);
     } finally {
+      setTemporaryMessage(null)
       setSending(false);
     }
   };
@@ -108,6 +127,9 @@ const ChatWindow = () => {
     }
   };
 
+  const visibleMessages = selectedChat?.messages ?? [];
+  const mensaggesDisplay = temporaryMessage && selectedChat && temporaryMessage.chatId === selectedChat.id ? [...visibleMessages,temporaryMessage]:visibleMessages;
+
   if (!selectedChat) {
     return (
       <div className="flex h-full items-center justify-center">
@@ -135,7 +157,7 @@ const ChatWindow = () => {
           onDelete={() => setDeleteOpen(true)}
         />
 
-        <MessageList messages={selectedChat.messages ?? []} />
+        <MessageList messages={mensaggesDisplay} />
 
         {sending && <TypingIndicator />}
 

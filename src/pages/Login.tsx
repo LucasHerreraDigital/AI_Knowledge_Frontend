@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 import LoginForm from "../components/auth/LoginForm";
-import { login } from "../api/auth.api";
+import { login } from "../services/auth.service";
 import { useAuthStore } from "../store/auth.store";
 
 const Login = () => {
@@ -23,7 +23,7 @@ const Login = () => {
         password,
       });
 
-      setAuth(data.user, data.token);
+      setAuth(data.user, data.accessToken);
 
       navigate("/dashboard");
     } catch (error: any) {

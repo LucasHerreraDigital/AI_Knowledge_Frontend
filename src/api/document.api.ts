@@ -17,15 +17,14 @@ export const uploadDocument = async (
 ) => {
   const formData = new FormData();
 
-  formData.append("workspaceId", workspaceId);
   formData.append("file", file);
 
   const response = await api.post(
-    "/documents/upload",
+    `/documents/${workspaceId}/upload`,
     formData,
     {
       headers: {
-        "Content-Type": "multipart/form-data",
+        "Content-Type":undefined
       },
 
       onUploadProgress: (progressEvent) => {

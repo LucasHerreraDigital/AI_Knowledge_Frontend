@@ -30,12 +30,7 @@ const MainLayout = () => {
     const loadWorkspaces = async () => {
       try {
         setLoading(true);
-
-        const data =
-          await workspaceService.getWorkspacesByUser(
-            user.id
-          );
-
+       const data = await workspaceService.getWorkspaces()
         setWorkspaces(data);
       } catch (error) {
         console.error(
