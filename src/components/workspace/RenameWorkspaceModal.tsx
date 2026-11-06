@@ -45,7 +45,7 @@ const RenameWorkspaceModal = ({
                 <form onSubmit={handleSubmit}>
                     <div className="p-6">
                         <label className="mb-2 block text-sm text-slate-400">
-                            Nombre del chat
+                            Nombre del workspace
                         </label>
                         <input autoFocus value={title} onChange={(event)=>setTitle(event.target.value)} className="w-full rounded-lg border border-slate-700 bg-slate-900 px-4 py-3 text-sm text-white outline-none transition focus:border-indigo-500"/>
                     </div>
