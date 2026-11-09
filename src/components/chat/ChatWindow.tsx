@@ -4,6 +4,7 @@ import type { Message } from "../../types/message";
 
 import { useChatStore } from "../../store/chat.store";
 import { chatService } from "../../services/chat.service";
+import type { ChatSource } from "../../types/source";
 
 import ChatHeader from "./ChatHeader";
 import MessageList from "./MessageList";
@@ -27,6 +28,8 @@ const ChatWindow = () => {
   const [deleting, setDeleting] = useState(false);
 
   const [temporaryMessage,setTemporaryMessage]= useState<Message | null>(null)
+
+  const [messageSources, setMessageSources] = useState<Record<string, ChatSource[]>>({});
 
   const selectedChat = useChatStore((state) => state.selectedChat);
 
@@ -54,38 +57,50 @@ const ChatWindow = () => {
     loadChat();
   }, [selectedChat?.id, updateChat]);
 
-  const handleSendMessage = async (content: string) => {
+  
+const handleSendMessage = async (content: string) => {
     if (!selectedChat || sending) return;
 
     try {
       setSending(true);
 
-      const chatId = selectedChat.id
+      const chatId = selectedChat.id;
 
       const optimisticMessage: Message = {
-        id:crypto.randomUUID(),
-        chatId: chatId,
-        role:"user",
-        content: content,
-        tokens:null,
-        model:null,
-        createdAt:new Date().toISOString()
-      } 
-
-      setTemporaryMessage(optimisticMessage)
-
-      const updatedChat = await chatService.sendMessage(
-        selectedChat.id,
+        id: crypto.randomUUID(),
+        chatId,
+        role: "user",
         content,
-      );
-      updateChat(updatedChat);
+        tokens: null,
+        model: null,
+        createdAt: new Date().toISOString(),
+      };
+
+      setTemporaryMessage(optimisticMessage);
+
+      const result = await chatService.sendMessage(chatId, content);
+
+      console.log("RESULT COMPLETO:", result);
+
+      updateChat(result.chat);
+
+      const assistantMessage = [...result.chat.messages]
+        .reverse()
+        .find((message) => message.role === "assistant");
+      if (assistantMessage) {
+        setMessageSources((prev) => ({
+          ...prev,
+          [assistantMessage.id]: result.sources,
+        }));
+      }
     } catch (error) {
       console.error("Error enviando mensaje:", error);
     } finally {
-      setTemporaryMessage(null)
+      setTemporaryMessage(null);
       setSending(false);
     }
   };
+
 
   const handleRename = async (title: string) => {
     if (!selectedChat) return;
@@ -157,7 +172,7 @@ const ChatWindow = () => {
           onDelete={() => setDeleteOpen(true)}
         />
 
-        <MessageList messages={mensaggesDisplay} />
+        <MessageList messages={mensaggesDisplay}  sourcesByMessageId={messageSources} />
 
         {sending && <TypingIndicator />}
 

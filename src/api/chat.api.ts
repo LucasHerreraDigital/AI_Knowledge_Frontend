@@ -1,5 +1,6 @@
 import { api } from "./axios";
 import type { ChatSearchResult } from "../types/search";
+import type { SendMessageResponse } from "../types/chat";
 
 export const createChat = async (data: {
   workspaceId: string;
@@ -57,7 +58,7 @@ export const getMessages = async (chatId: string) => {
   return response.data;
 };
 
-export const sendMessage = async (chatId: string, content: string) => {
+export const sendMessage = async (chatId: string, content: string): Promise<SendMessageResponse> => {
   const response = await api.post(`/chats/${chatId}/messages`, {
     content,
   });
