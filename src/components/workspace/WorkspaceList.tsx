@@ -5,11 +5,15 @@ import { useWorkspaceStore } from "../../store/workspace.store";
 interface WorkspaceListProps {
   workspaces: Workspace[];
   onSelectWorkspace: (workspace: Workspace) => void;
+  onRename: (workspace: Workspace) => void;
+  onDelete: (workspace: Workspace) => void;
 }
 
 const WorkspaceList = ({
   workspaces,
   onSelectWorkspace,
+  onDelete,
+  onRename,
 }: WorkspaceListProps) => {
   const selectedWorkspace = useWorkspaceStore(
     (state) => state.selectedWorkspace
@@ -21,10 +25,10 @@ const WorkspaceList = ({
         <WorkspaceItem
           key={workspace.id}
           workspace={workspace}
+          onDelete={() => onDelete(workspace)}
+          onRename={() => onRename(workspace)}
           onSelectWorkspace={onSelectWorkspace}
-          active={
-            selectedWorkspace?.id === workspace.id
-          }
+          active={selectedWorkspace?.id === workspace.id}
         />
       ))}
     </div>

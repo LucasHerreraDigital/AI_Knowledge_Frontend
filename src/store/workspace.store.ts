@@ -1,6 +1,7 @@
 import { create } from "zustand";
 
 import type { Workspace } from "../types/workspace";
+import { workspaces } from "../mocks/workspaces";
 
 interface WorkspaceStore {
   workspaces: Workspace[];
@@ -11,6 +12,10 @@ interface WorkspaceStore {
   selectWorkspace: (workspace: Workspace | null) => void;
 
   addWorkspace: (workspace: Workspace) => void;
+
+  updateWorkspace: (workspace: Workspace) => void;
+
+  removeWorkspace: (workspaceId: string) => void;
 
   incrementDocumentCount: (workspaceId: string) => void;
 
@@ -31,6 +36,28 @@ export const useWorkspaceStore = create<WorkspaceStore>((set) => ({
       selectedWorkspace: workspace,
     }),
 
+  updateWorkspace: (workspace)=>
+    set((state)=>({
+      workspaces: state.workspaces.map((item)=>
+        item.id === workspace.id ? workspace : item
+      ),
+      selectedWorkspace:
+        state.selectedWorkspace?.id === workspace.id
+          ? workspace
+          : state.selectedWorkspace,
+    })),
+  
+  removeWorkspace: (workspaceId) =>
+    set((state)=>({
+      workspaces: state.workspaces.filter(
+        (workspace) => workspace.id !== workspaceId
+      ),
+      selectedWorkspace:
+        state.selectedWorkspace?.id === workspaceId
+          ? null
+          : state.selectedWorkspace
+    })),
+  
   addWorkspace: (workspace) =>
     set((state) => ({
       workspaces: [...state.workspaces, workspace],

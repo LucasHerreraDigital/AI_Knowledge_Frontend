@@ -9,6 +9,8 @@ import WorkspaceList from "../workspace/WorkspaceList";
 import WorkspaceCreateButton from "../workspace/WorkspaceCreateButton";
 import CreateWorkspaceModal from "../workspace/CreateWorkspaceModal";
 import SidebarFooter from "./SidebarFooter";
+import DeleteWorkspaceModal from "../workspace/DeleteWorkspaceModal";
+import RenameWorkspaceModal from "../workspace/RenameWorkspaceModal";
 
 import { useWorkspaceStore } from "../../store/workspace.store";
 import { useAuthStore } from "../../store/auth.store";
@@ -18,22 +20,96 @@ import { workspaceService } from "../../services/workspace.service";
 
 const Sidebar = () => {
   const [showCreateModal, setShowCreateModal] = useState(false);
+  const [workspaceToDelete, setWorkspaceToDelete] = useState<Workspace | null>(null);
+  const [workspaceToRename, setWorkspaceToRename] = useState<Workspace | null>(null);
+  const [isDeleting, setIsDeleting] = useState(false);
+  const [isRenaming, setIsRenaming] = useState(false);
 
   const navigate = useNavigate();
   const location = useLocation();
 
   const workspaces = useWorkspaceStore((state) => state.workspaces);
-
   const selectWorkspace = useWorkspaceStore((state) => state.selectWorkspace);
-
   const addWorkspace = useWorkspaceStore((state) => state.addWorkspace);
+  const updateWorkspaceInStore  = useWorkspaceStore((state) => state.updateWorkspace)
+  const removeWorkspace = useWorkspaceStore ((state) => state.removeWorkspace)
+  const selectedWorkspace = useWorkspaceStore((state) => state.selectedWorkspace);
 
   const authUser = useAuthStore((state) => state.user);
+
   const selectChat = useChatStore((state) => state.selectChat);
 
   const handleSelectWorkspace = (workspace: Workspace) => {
     selectChat(null);
     selectWorkspace(workspace);
+  };
+  const handleOpenRenameModal = (workspace: Workspace) => {
+    setWorkspaceToRename(workspace);
+  };
+
+  const handleOpenDeleteModal = (workspace: Workspace) => {
+    setWorkspaceToDelete(workspace);
+  };
+
+  const handleCloseRenameModal = () => {
+    if (isRenaming) return;
+    setWorkspaceToRename(null);
+  };
+
+  const handleCloseDeleteModal = () => {
+    if (isDeleting) return;
+    setWorkspaceToDelete(null);
+  };
+
+  const handleRenameWorkspace = async (newName: string) => {
+    if (!authUser || !workspaceToRename) return;
+
+    const trimmedName = newName.trim();
+
+    if (!trimmedName) return;
+
+    try {
+      setIsRenaming(true);
+
+      const updatedWorkspace = await workspaceService.updateWorkspace(
+        workspaceToRename.id,
+        { name: trimmedName }
+      );
+
+      updateWorkspaceInStore(updatedWorkspace);
+
+      setWorkspaceToRename(null);
+
+    } catch (error) {
+      console.error("Error renombrando workspace:", error);
+    } finally {
+      setIsRenaming(false);
+    }
+  };
+  
+
+  const handleRemoveWorkspace = async () => {
+    if (!authUser || !workspaceToDelete) return;
+
+    try {
+      setIsDeleting(true);
+
+      await workspaceService.deleteWorkspace(workspaceToDelete.id);
+
+      removeWorkspace(workspaceToDelete.id);
+
+      if (workspaceToDelete.id === selectedWorkspace?.id) {
+        selectChat(null);
+        navigate("/dashboard");
+      }
+
+      setWorkspaceToDelete(null);
+
+    } catch (error) {
+      console.error("Error eliminando workspace:", error);
+    } finally {
+      setIsDeleting(false);
+    }
   };
 
   const handleCreateWorkspace = async (data: {
@@ -141,6 +217,8 @@ const Sidebar = () => {
           </div>
 
           <WorkspaceList
+            onDelete={handleOpenDeleteModal}
+            onRename={handleOpenRenameModal}
             workspaces={workspaces}
             onSelectWorkspace={handleSelectWorkspace}
           />
@@ -162,6 +240,21 @@ const Sidebar = () => {
         open={showCreateModal}
         onClose={() => setShowCreateModal(false)}
         onCreate={handleCreateWorkspace}
+      />
+      <RenameWorkspaceModal
+        open={workspaceToRename !== null}
+        currentTitle={workspaceToRename?.name ?? ""}
+        loading={isRenaming}
+        onClose={handleCloseRenameModal}
+        onRename={handleRenameWorkspace}
+      />
+
+      <DeleteWorkspaceModal
+        open={workspaceToDelete !== null}
+        workspaceTitle={workspaceToDelete?.name ?? ""}
+        loading={isDeleting}
+        onClose={handleCloseDeleteModal}
+        onConfirm={handleRemoveWorkspace}
       />
     </>
   );

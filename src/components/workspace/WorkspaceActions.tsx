@@ -34,7 +34,7 @@ const WorkspaceActions = ({ onRename, onDelete }: WorkspaceActionsProps) => {
       <button
         type="button"
         onClick={() => setOpen((prev) => !prev)}
-        className="rounded-lg p-1.5 text-slate-500 translation hover:bg-slate-700 hover:text-white"
+        className="rounded-lg p-1.5 text-slate-500 transition hover:bg-slate-700 hover:text-white"
       >
         <MoreVertical size={17} />
       </button>
