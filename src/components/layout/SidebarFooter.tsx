@@ -1,5 +1,5 @@
 
-import { useState } from "react";
+import { useState ,useRef, useEffect } from "react";
 import Avatar from "../common/Avatar";
 import type { User } from "../../types/user";
 import { logout } from "../../services/auth.service";
@@ -11,6 +11,7 @@ import {
   ChevronUp,
   Monitor
 } from "lucide-react";
+import { useThemeStore } from "../../store/theme.store";
 
 interface SidebarFooterProps {
   user: User;
@@ -19,32 +20,51 @@ interface SidebarFooterProps {
 const SidebarFooter = ({ user }: SidebarFooterProps) => {
   const [isOpen, setIsOpen] = useState(false);
 
-  const clearAuth = useAuthStore((state) => state.clearAuth);
+  const sidebarFooterRef = useRef<HTMLDivElement>(null)
 
-  // Temporal: reemplazar por tu sistema global de temas
-  const [theme, setTheme] = useState<"light" | "dark">("dark");
+  const clearAuth = useAuthStore((state) => state.clearAuth);
+  const theme = useThemeStore((state)=>state.theme)
+  const setTheme = useThemeStore((state)=>state.setTheme)
+
+  useEffect (()=>{
+
+    if(!isOpen) return
+
+    const handleClickOutside = (event:MouseEvent) =>{
+      if(sidebarFooterRef.current && !sidebarFooterRef.current.contains(event.target as Node)){
+        setIsOpen(false)
+      }  
+    }
+
+    const handleEscape = (event:KeyboardEvent) =>{
+      if(event.key === "Escape"){
+        setIsOpen(false)
+      }
+    }
+
+    document.addEventListener("mousedown",handleClickOutside)
+    document.addEventListener("keydown",handleEscape)
+
+    return () =>{
+      document.removeEventListener("mousedown",handleClickOutside)
+      document.removeEventListener("keydown",handleEscape)
+    }
+
+  },[isOpen])
 
   const handleLogout = async () => {
     try {
       await logout();
     } catch {
-      // Aunque falle el logout del servidor,
-      // limpiamos la sesión local.
     } finally {
       clearAuth();
     }
   };
 
-  const handleThemeChange = (newTheme: "light" | "dark") => {
-    setTheme(newTheme);
-    document.documentElement.classList.toggle(
-      "dark",
-      newTheme === "dark"
-    );
-  };
+ 
 
   return (
-    <div className="relative border-t border-gray-200 dark:border-gray-700 pt-3 ">
+    <div className="relative border-t border-gray-200 dark:border-gray-700 pt-3 " ref={sidebarFooterRef}>
 
       {isOpen && (
         <div className="absolute bottom-full left-0 mb-2 w-full rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 shadow-lg p-2">
@@ -65,27 +85,51 @@ const SidebarFooter = ({ user }: SidebarFooterProps) => {
             </p>
 
             <button
-              onClick={() => handleThemeChange("light")}
+              onClick={() => {
+                setTheme("light");
+                setIsOpen(false) 
+              }}
               className={`flex items-center gap-2 w-full rounded-lg px-3 py-2 text-sm ${
                 theme === "light"
                   ? "bg-gray-100 dark:bg-gray-800"
                   : "hover:bg-gray-100 dark:hover:bg-gray-800"
               }`}
+              aria-pressed={theme === "light"}
             >
               <Sun size={17} />
               Tema claro
             </button>
 
             <button
-              onClick={() => handleThemeChange("dark")}
+              onClick={() => {
+                setTheme("dark");
+                setIsOpen(false) 
+              }}
               className={`flex items-center gap-2 w-full rounded-lg px-3 py-2 text-sm ${
                 theme === "dark"
                   ? "bg-gray-100 dark:bg-gray-800"
                   : "hover:bg-gray-100 dark:hover:bg-gray-800"
               }`}
+              aria-pressed={theme === "dark"}
             >
               <Moon size={17} />
               Tema oscuro
+            </button>
+
+            <button
+              onClick={() =>{
+                setTheme("system");
+                setIsOpen(false) 
+              }}
+              className={`flex items-center gap-2 w-full rounded-lg px-3 py-2 text-sm ${
+                theme === "system"
+                  ? "bg-gray-100 dark:bg-gray-800"
+                  : "hover:bg-gray-100 dark:hover:bg-gray-800"
+              }`}
+              aria-pressed={theme === "system"}
+            >
+              <Monitor size={17} />
+              Tema del sistema
             </button>
           </div>
 

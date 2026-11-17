@@ -28,7 +28,9 @@ function App() {
   },[])
 
   return (
+    <>
       <AppRoutes />
+    </>
   )
 }
 
