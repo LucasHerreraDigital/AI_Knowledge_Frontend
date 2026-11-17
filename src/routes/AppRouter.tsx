@@ -3,7 +3,6 @@ import { Routes, Route, Navigate } from "react-router-dom";
 import Login from "../pages/Login";
 import Register from "../pages/Register";
 import Dashboard from "../pages/Dashboard";
-import Settings from "../pages/Settings";
 
 import MainLayout from "../components/layout/MainLayout";
 import ProtectedRoute from "./ProtectedRoutes";
@@ -20,8 +19,6 @@ const AppRoutes = () => {
       <Route element={<ProtectedRoute />}>
         <Route element={<MainLayout />}>
           <Route path="/dashboard" element={<Dashboard />} />
-
-          <Route path="/settings" element={<Settings />} />
         </Route>
       </Route>
 

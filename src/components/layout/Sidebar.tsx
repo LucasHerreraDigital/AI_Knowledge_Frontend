@@ -176,30 +176,7 @@ const Sidebar = () => {
             </li>
 
             <li>
-              <button
-                type="button"
-                onClick={() => navigate("/settings")}
-                className={`
-                  flex
-                  w-full
-                  items-center
-                  gap-3
-                  rounded-lg
-                  px-4
-                  py-3
-                  text-left
-                  transition
-
-                  ${
-                    location.pathname === "/settings"
-                      ? "bg-indigo-500/10 text-indigo-400"
-                      : "text-slate-400 hover:bg-slate-800 hover:text-white"
-                  }
-                `}
-              >
-                <Settings size={20} />
-                Ajustes
-              </button>
+              
             </li>
           </ul>
         </nav>
