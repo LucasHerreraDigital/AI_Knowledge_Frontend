@@ -4,7 +4,6 @@ import type { Message } from "../../types/message";
 
 import { useChatStore } from "../../store/chat.store";
 import { chatService } from "../../services/chat.service";
-import type { ChatSource } from "../../types/source";
 
 import ChatHeader from "./ChatHeader";
 import MessageList from "./MessageList";
@@ -29,7 +28,6 @@ const ChatWindow = () => {
 
   const [temporaryMessage,setTemporaryMessage]= useState<Message | null>(null)
 
-  const [messageSources, setMessageSources] = useState<Record<string, ChatSource[]>>({});
 
   const selectedChat = useChatStore((state) => state.selectedChat);
 
@@ -68,6 +66,7 @@ const handleSendMessage = async (content: string) => {
 
       const optimisticMessage: Message = {
         id: crypto.randomUUID(),
+        sources:[],
         chatId,
         role: "user",
         content,
@@ -84,15 +83,6 @@ const handleSendMessage = async (content: string) => {
 
       updateChat(result.chat);
 
-      const assistantMessage = [...result.chat.messages]
-        .reverse()
-        .find((message) => message.role === "assistant");
-      if (assistantMessage) {
-        setMessageSources((prev) => ({
-          ...prev,
-          [assistantMessage.id]: result.sources,
-        }));
-      }
     } catch (error) {
       console.error("Error enviando mensaje:", error);
     } finally {
@@ -172,7 +162,7 @@ const handleSendMessage = async (content: string) => {
           onDelete={() => setDeleteOpen(true)}
         />
 
-        <MessageList messages={mensaggesDisplay}  sourcesByMessageId={messageSources} />
+        <MessageList messages={mensaggesDisplay}/>
 
         {sending && <TypingIndicator />}
 

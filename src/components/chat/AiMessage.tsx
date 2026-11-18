@@ -1,17 +1,13 @@
 
 import { useState } from "react";
-
 import type { Message } from "../../types/message";
-import type { ChatSource } from "../../types/source";
 
 interface AIMessageProps {
   message: Message;
-  sources: ChatSource[];
 }
 
 const AIMessage = ({
   message,
-  sources,
 }: AIMessageProps) => {
   const [showSources, setShowSources] = useState(false);
 
@@ -37,7 +33,7 @@ const AIMessage = ({
         </div>
 
         {/* Fuentes */}
-        {sources.length > 0 && (
+        {message.sources.length > 0 && (
           <div className="mt-3">
             <button
               type="button"
@@ -49,7 +45,7 @@ const AIMessage = ({
               </span>
 
               <span>
-                ({sources.length})
+                ({message.sources.length})
               </span>
 
               <span>
@@ -59,7 +55,7 @@ const AIMessage = ({
 
             {showSources && (
               <div className="mt-3 space-y-3">
-                {sources.map((source) => (
+                {message.sources.map((source) => (
                   <div
                     key={source.id}
                     className="rounded-xl border border-slate-800 bg-[#0B1120] p-3"

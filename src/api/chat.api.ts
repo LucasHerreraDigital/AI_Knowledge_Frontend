@@ -1,6 +1,7 @@
 import { api } from "./axios";
 import type { ChatSearchResult } from "../types/search";
 import type { SendMessageResponse } from "../types/chat";
+import type { Message } from "../types/message";
 
 export const createChat = async (data: {
   workspaceId: string;
@@ -52,7 +53,7 @@ export const deleteChat = async (chatId: string) => {
   return response.data;
 };
 
-export const getMessages = async (chatId: string) => {
+export const getMessages =  async (chatId: string):Promise<Message[]> => {
   const response = await api.get(`/chats/${chatId}/messages`);
 
   return response.data;

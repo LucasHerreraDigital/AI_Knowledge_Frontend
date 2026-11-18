@@ -1,9 +1,3 @@
-import {
-  Search,
-  Bell,
-} from "lucide-react";
-
-import Avatar from "../common/Avatar";
 import WorkspaceHeader from "../workspace/WorkspaceHeader";
 
 import type { Workspace } from "../../types/workspace";
@@ -40,10 +34,6 @@ const Header = ({ workspace }: HeaderProps) => {
         {/* Search */}
         <GlobalChatSearch/>
 
-        {/* Notificaciones */}
-        <button className="text-slate-400 transition hover:text-white">
-          <Bell size={20} />
-        </button>
 
       </div>
 
