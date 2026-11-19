@@ -134,12 +134,12 @@ const Sidebar = () => {
 
   return (
     <>
-      <aside className="flex h-screen w-72 shrink-0 flex-col border-r border-slate-800 bg-[#0B1120]">
+      <aside className="flex h-screen w-72 shrink-0 flex-col border-r border-border bg-background">
         {/* Logo */}
         <div className="flex items-center gap-3 px-6 py-6">
-          <Sparkles size={24} className="text-white" />
+          <Sparkles size={24} className="text-text-primary" />
 
-          <h1 className="text-3xl font-bold tracking-tight text-white">
+          <h1 className="text-3xl font-bold tracking-tight text-text-primary">
             AI Knowledge
           </h1>
         </div>
@@ -164,9 +164,9 @@ const Sidebar = () => {
                   px-4
                   py-3
                   text-left
-                  text-slate-400
-                  transition
-                  hover:bg-slate-800
+                  text-text-secondary
+                  transition-colors
+                  hover:bg-indigo-600
                   hover:text-white
                 "
               >
@@ -181,12 +181,12 @@ const Sidebar = () => {
           </ul>
         </nav>
 
-        <div className="mx-5 my-6 border-t border-slate-800" />
+        <div className="mx-5 my-6 border-t border-border" />
 
         {/* Workspaces */}
         <div className="min-h-0 flex-1 overflow-y-auto px-5">
           <div className="mb-4 flex items-center justify-between">
-            <h2 className="text-xs font-semibold uppercase tracking-wider text-slate-500">
+            <h2 className="text-xs font-semibold uppercase tracking-wider text-text-primary">
               Mis Workspaces
             </h2>
 
@@ -201,7 +201,7 @@ const Sidebar = () => {
           />
         </div>
 
-        <div className="mx-5 border-t border-slate-800" />
+        <div className="mx-5 border-t border-border" />
 
         {authUser && (
           <SidebarFooter

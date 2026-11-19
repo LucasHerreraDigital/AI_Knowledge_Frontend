@@ -1,3 +1,4 @@
+
 import { useEffect, useState } from "react";
 
 import WorkspacePanel from "../components/workspace/WorkspacePanel";
@@ -7,7 +8,6 @@ import { useWorkspaceStore } from "../store/workspace.store";
 import { useChatStore } from "../store/chat.store";
 
 import { documentService } from "../services/document.service";
-import { chatService } from "../services/chat.service";
 
 import type { Document } from "../types/document";
 
@@ -17,9 +17,8 @@ const Dashboard = () => {
   const selectedWorkspace = useWorkspaceStore(
     (state) => state.selectedWorkspace,
   );
-  const handleDocumentUploaded = (
-    document: Document
-  ) => {
+
+  const handleDocumentUploaded = (document: Document) => {
     setDocuments((currentDocuments) => [
       document,
       ...currentDocuments,
@@ -33,7 +32,6 @@ const Dashboard = () => {
   const workspaces = useWorkspaceStore((state) => state.workspaces);
 
   const setChats = useChatStore((state) => state.setChats);
-
   const selectChat = useChatStore((state) => state.selectChat);
 
   useEffect(() => {
@@ -41,7 +39,6 @@ const Dashboard = () => {
       setDocuments([]);
       setChats([]);
       selectChat(null);
-
       return;
     }
 
@@ -52,8 +49,6 @@ const Dashboard = () => {
         ]);
 
         setDocuments(documentsData);
-
-        // No abrimos ningún chat automáticamente
         selectChat(null);
       } catch (error) {
         console.error("Error cargando workspace:", error);
@@ -67,10 +62,6 @@ const Dashboard = () => {
     loadWorkspaceData();
   }, [selectedWorkspace, setChats, selectChat]);
 
-  /*
-   * Actualiza inmediatamente la lista
-   * después de eliminar un documento.
-   */
   const handleDocumentDeleted = (documentId: string) => {
     if (!selectedWorkspace) return;
 
@@ -83,25 +74,25 @@ const Dashboard = () => {
 
   if (!selectedWorkspace) {
     return (
-      <div className="flex h-full items-center justify-center">
+      <div className="flex h-full items-center justify-center bg-background text-text-primary transition-colors">
         <div className="max-w-md text-center">
           {workspaces.length === 0 ? (
             <>
-              <h2 className="text-xl font-semibold text-white">
+              <h2 className="text-xl font-semibold text-text-primary">
                 No tenés workspaces
               </h2>
 
-              <p className="mt-2 text-sm text-slate-500">
+              <p className="mt-2 text-sm text-text-secondary">
                 Creá tu primer workspace para comenzar.
               </p>
             </>
           ) : (
             <>
-              <h2 className="text-xl font-semibold text-white">
+              <h2 className="text-xl font-semibold text-text-primary">
                 Seleccioná un workspace
               </h2>
 
-              <p className="mt-2 text-sm text-slate-500">
+              <p className="mt-2 text-sm text-text-secondary">
                 Elegí uno de tus workspaces desde el menú lateral para ver sus
                 documentos y chats.
               </p>
@@ -113,7 +104,7 @@ const Dashboard = () => {
   }
 
   return (
-    <div className="flex h-full min-w-0 overflow-hidden">
+    <div className="flex h-full min-w-0 overflow-hidden bg-background text-text-primary transition-colors">
       <WorkspacePanel
         workspace={selectedWorkspace}
         documents={documents}
@@ -121,7 +112,7 @@ const Dashboard = () => {
         onDocumentUploaded={handleDocumentUploaded}
       />
 
-      <section className="min-w-0 flex-1 overflow-hidden">
+      <section className="min-w-0 flex-1 overflow-hidden bg-background">
         <ChatWindow />
       </section>
     </div>

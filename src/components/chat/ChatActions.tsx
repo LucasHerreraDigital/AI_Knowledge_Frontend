@@ -36,34 +36,14 @@ const ChatActions = ({ onRename, onDelete }: ChatActionsProps) => {
       <button
         type="button"
         onClick={() => setOpen((prev) => !prev)}
-        className="
-          rounded-lg
-          p-1.5
-          text-slate-500
-          transition
-          hover:bg-slate-700
-          hover:text-white
-        "
+        className="cursor-pointer rounded-lg p-2 text-text-secondary transition-colors hover:bg-background hover:text-text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500"
       >
         <MoreVertical size={17} />
       </button>
 
       {open && (
         <div
-          className="
-            absolute
-            right-0
-            top-9
-            z-50
-            w-40
-            overflow-hidden
-            rounded-lg
-            border
-            border-slate-700
-            bg-slate-900
-            py-1
-            shadow-xl
-          "
+          className="absolute right-0 top-10 z-20 w-44 overflow-hidden rounded-lg border border-border bg-surface shadow-xl"
         >
           <button
             type="button"
@@ -71,26 +51,13 @@ const ChatActions = ({ onRename, onDelete }: ChatActionsProps) => {
               setOpen(false);
               onRename();
             }}
-            className="
-              flex
-              w-full
-              items-center
-              gap-3
-              px-3
-              py-2
-              text-left
-              text-sm
-              text-slate-300
-              transition
-              hover:bg-slate-800
-              hover:text-white
-            "
+            className="flex w-full items-center gap-3 px-4 py-2.5 text-sm text-text-primary transition-colors hover:bg-background cursor-pointer hover:bg-indigo-600/15"
           >
             <Pencil size={15} />
             Renombrar
           </button>
 
-          <div className="my-1 border-t border-slate-800" />
+          <div className="border-t border-border" />
 
           <button
             type="button"
@@ -98,19 +65,7 @@ const ChatActions = ({ onRename, onDelete }: ChatActionsProps) => {
               setOpen(false);
               onDelete();
             }}
-            className="
-              flex
-              w-full
-              items-center
-              gap-3
-              px-3
-              py-2
-              text-left
-              text-sm
-              text-red-400
-              transition
-              hover:bg-red-500/10
-            "
+            className="flex w-full items-center gap-3 px-4 py-2.5 text-sm text-red-500 transition-colors hover:bg-red-500/20 cursor-pointer"
           >
             <Trash2 size={15} />
             Eliminar

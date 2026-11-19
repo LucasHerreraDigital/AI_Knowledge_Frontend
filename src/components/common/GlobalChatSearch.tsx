@@ -133,16 +133,16 @@ const GlobalChatSearch = () => {
           gap-3
           rounded-xl
           border
-          border-slate-700
-          bg-slate-900
+          border-border
+          bg-background
           px-3
           transition
-          focus-within:border-indigo-500
+          focus-within:border-indigo-600
         "
       >
         <Search
           size={18}
-          className="text-slate-500"
+          className="text-text-secondary"
         />
 
         <input
@@ -157,9 +157,9 @@ const GlobalChatSearch = () => {
             w-full
             bg-transparent
             text-sm
-            text-white
+            text-text-primary
             outline-none
-            placeholder:text-slate-500
+            placeholder:text-text-secondary
           "
         />
       </div>
@@ -177,18 +177,18 @@ const GlobalChatSearch = () => {
             overflow-y-auto
             rounded-xl
             border
-            border-slate-800
-            bg-[#0B1120]
+            border-border
+            bg-background
             p-2
             shadow-2xl
           "
         >
           {loading ? (
-            <div className="px-4 py-6 text-center text-sm text-slate-400">
+            <div className="px-4 py-6 text-center text-sm text-text-secondary">
               Buscando...
             </div>
           ) : results.length === 0 ? (
-            <div className="px-4 py-6 text-center text-sm text-slate-500">
+            <div className="px-4 py-6 text-center text-sm text-text-secondary">
               No se encontraron chats
             </div>
           ) : (
@@ -203,14 +203,14 @@ const GlobalChatSearch = () => {
                   className="
                     flex
                     w-full
-                    items-start
+                    items-center
                     gap-3
                     rounded-lg
                     px-3
                     py-3
                     text-left
-                    transition
-                    hover:bg-slate-800
+                    transition-colors
+                    hover:bg-indigo-600/20
                   "
                 >
                   {/* Icono */}
@@ -223,27 +223,27 @@ const GlobalChatSearch = () => {
                       items-center
                       justify-center
                       rounded-lg
-                      bg-indigo-500/10
+                      bg-indigo-600
                     "
                   >
                     <MessageSquare
                       size={18}
-                      className="text-indigo-400"
+                      className="dark:text-indigo-400 text-white"
                     />
                   </div>
 
                   {/* Info */}
                   <div className="min-w-0 flex-1">
-                    <p className="truncate text-sm font-medium text-white">
+                    <p className="truncate text-sm font-medium text-text-primary">
                       {result.title}
                     </p>
 
-                    <div className="mt-1 flex items-center gap-1.5 text-xs text-slate-500">
+                    <div className="mt-1 flex items-center gap-1.5 text-xs text-text-secondary">
                       <FolderOpen size={13} />
                       {result.workspace.name}
                     </div>
 
-                    <p className="mt-2 truncate text-xs text-slate-400">
+                    <p className="mt-2 truncate text-xs text-text-secondary">
                       {result.messages[0]?.content ??
                         "Sin mensajes"}
                     </p>

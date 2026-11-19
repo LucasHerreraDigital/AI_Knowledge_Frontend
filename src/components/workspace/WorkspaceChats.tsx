@@ -120,8 +120,8 @@ const WorkspaceChats = ({
   };
 
   return (
-    <section className="flex min-h-0 flex-1 flex-col">
-      <div className="border-b border-slate-800 p-5">
+    <section className="flex min-h-0 flex-1 flex-col bg-surface text-text-primary transition-colors">
+      <div className="border-b border-border p-5">
         <ChatListHeader
           total={chats.length}
           onCreate={() => setShowCreateModal(true)}

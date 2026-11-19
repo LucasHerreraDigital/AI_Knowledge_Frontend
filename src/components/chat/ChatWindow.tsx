@@ -137,8 +137,8 @@ const handleSendMessage = async (content: string) => {
 
   if (!selectedChat) {
     return (
-      <div className="flex h-full items-center justify-center">
-        <p className="text-sm text-slate-500">
+      <div className="flex h-full items-center justify-center bg-background text-text-secondary transition-colors">
+        <p className="text-sm">
           Seleccioná un chat para comenzar
         </p>
       </div>
@@ -147,7 +147,7 @@ const handleSendMessage = async (content: string) => {
 
   if (loadingChat) {
     return (
-      <div className="flex h-full items-center justify-center">
+      <div className="flex h-full items-center justify-center bg-background">
         <TypingIndicator />
       </div>
     );
@@ -155,7 +155,7 @@ const handleSendMessage = async (content: string) => {
 
   return (
     <>
-      <section className="flex h-full min-w-0 flex-col bg-[#0F172A]">
+      <section className="flex h-full min-w-0 flex-col bg-background text-text-primary transition-colors">
         <ChatHeader
           title={selectedChat.title}
           onRename={() => setRenameOpen(true)}

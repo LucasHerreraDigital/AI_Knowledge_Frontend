@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
@@ -37,19 +38,20 @@ const Register = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#0B1120]">
-      <div className="flex min-h-screen items-center justify-center px-4">
+    <div className="min-h-screen bg-background transition-colors duration-200">
+      <div className="flex min-h-screen items-center justify-center px-4 py-8">
         <div className="w-full max-w-md">
+
           {/* Header */}
           <div className="mb-8 text-center">
             <Link
               to="/"
-              className="text-2xl font-bold text-white"
+              className="text-2xl font-bold text-text-primary transition-colors"
             >
               AI Knowledge
             </Link>
 
-            <p className="mt-2 text-sm text-slate-500">
+            <p className="mt-2 text-sm text-text-secondary">
               Creá tu cuenta
             </p>
           </div>
@@ -57,8 +59,9 @@ const Register = () => {
           {/* Card */}
           <div
             className="
-              rounded-xl border border-slate-800
-              bg-[#0F172A] p-6 shadow-xl
+              rounded-xl border border-border
+              bg-surface p-6 shadow-xl
+              transition-colors duration-200
             "
           >
             <RegisterForm
@@ -67,6 +70,7 @@ const Register = () => {
               error={error}
             />
           </div>
+
         </div>
       </div>
     </div>

@@ -39,15 +39,15 @@ const RenameChatModal = ({
 
   return (
     <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/60 px-4 backdrop-blur-sm">
-      <div className="w-full max-w-md rounded-2xl border border-slate-800 bg-[#0B1120] shadow-2xl">
-        <div className="flex items-center justify-between border-b border-slate-800 px-6 py-4">
-          <h2 className="font-semibold text-white">Renombrar chat</h2>
+      <div className="w-full max-w-md rounded-2xl border border-border bg-background shadow-2xl">
+        <div className="flex items-center justify-between border-b border-border px-6 py-4">
+          <h2 className="font-semibold text-text-primary">Renombrar chat</h2>
 
           <button
             type="button"
             disabled={loading}
             onClick={onClose}
-            className="rounded-lg p-2 text-slate-400 hover:bg-slate-800 hover:text-white"
+            className="rounded-xl p-2 text-text-primary dark:hover:bg-slate-700 hover:bg-slate-300 hover:text-white"
           >
             <X size={18} />
           </button>
@@ -55,7 +55,7 @@ const RenameChatModal = ({
 
         <form onSubmit={handleSubmit}>
           <div className="p-6">
-            <label className="mb-2 block text-sm text-slate-400">
+            <label className="mb-2 block text-sm text-text-secondary">
               Nombre del chat
             </label>
 
@@ -63,11 +63,11 @@ const RenameChatModal = ({
               autoFocus
               value={title}
               onChange={(event) => setTitle(event.target.value)}
-              className="w-full rounded-lg border border-slate-700 bg-slate-900 px-4 py-3 text-sm text-white outline-none transition focus:border-indigo-500"
+              className="w-full rounded-lg border border-border bg-background px-4 py-3 text-sm text-text-primary outline-none transition focus:border-border"
             />
           </div>
 
-          <div className="flex justify-end gap-3 border-t border-slate-800 px-6 py-4">
+          <div className="flex justify-end gap-3 border-t border-border px-6 py-4">
             <button
               type="button"
               disabled={loading}
@@ -80,7 +80,7 @@ const RenameChatModal = ({
             <button
               type="submit"
               disabled={loading || !title.trim()}
-              className="flex items-center gap-2 rounded-lg bg-indigo-600 px-4 py-2 text-sm font-medium text-white hover:bg-indigo-500 disabled:opacity-50"
+              className="flex items-center gap-2 rounded-lg bg-indigo-600 px-4 py-2 text-sm font-medium text-white hover:bg-indigo-500 "
             >
               {loading && <LoaderCircle size={16} className="animate-spin" />}
               Guardar

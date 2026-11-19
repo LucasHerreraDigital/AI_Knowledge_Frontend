@@ -17,6 +17,8 @@ const DocumentStatus = ({
     return (
       <CheckCircle2
         size={17}
+        aria-label="Documento procesado"
+        role="img"
         className="shrink-0 text-green-500"
       />
     );
@@ -26,6 +28,8 @@ const DocumentStatus = ({
     return (
       <Clock3
         size={17}
+        aria-label="Documento en proceso"
+        role="img"
         className="shrink-0 text-yellow-500"
       />
     );
@@ -35,6 +39,8 @@ const DocumentStatus = ({
     return (
       <CircleX
         size={17}
+        aria-label="Documento no procesado"
+        role="img"
         className="shrink-0 text-red-500"
       />
     );

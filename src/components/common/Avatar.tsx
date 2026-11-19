@@ -3,21 +3,17 @@ interface AvatarProps {
   plan?: string;
 }
 
-const Avatar = ({ name, plan }: AvatarProps) => {
+const Avatar = ({ name }: AvatarProps) => {
   return (
     <div className="flex items-center gap-3 p-5">
-      <div className="flex h-11 w-11 items-center justify-center rounded-full bg-slate-700 font-bold text-white">
+      <div className="flex h-11 w-11 items-center justify-center rounded-full bg-indigo-600 font-bold text-white">
         {name.charAt(0).toUpperCase()}
       </div>
 
       <div>
-        <h3 className="font-medium text-white">
+        <h3 className="font-medium text-text-primary">
           {name}
         </h3>
-
-        <p className="text-sm text-slate-400">
-          {plan}
-        </p>
       </div>
     </div>
   );

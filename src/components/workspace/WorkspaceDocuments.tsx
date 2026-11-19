@@ -129,9 +129,9 @@ const WorkspaceDocuments = ({
   };
 
   return (
-    <section className="flex h-full min-h-0 flex-col">
+    <section className="flex h-full min-h-0 flex-col bg-surface text-text-primary transition-colors">
       {/* Header */}
-      <div className="border-b border-slate-800 p-5">
+      <div className="border-b border-border p-5">
         <DocumentHeader
           total={documents.length}
           onUpload={() => setShowUploadModal(true)}
@@ -152,7 +152,7 @@ const WorkspaceDocuments = ({
 
       {/* Ver todos */}
       {documents.length > 3 && (
-        <div className="border-t border-slate-800 p-4">
+        <div className="border-t border-border p-4">
           <button
             type="button"
             onClick={() => setShowAll((prev) => !prev)}
@@ -161,9 +161,9 @@ const WorkspaceDocuments = ({
               text-center
               text-sm
               font-medium
-              text-indigo-400
+              text-indigo-600 hover:text-indigo-700
               transition
-              hover:text-indigo-300
+              dark:text-indigo-400 dark:hover:text-indigo-300
             "
           >
             {showAll ? "Mostrar menos" : "Ver todos los documentos"}

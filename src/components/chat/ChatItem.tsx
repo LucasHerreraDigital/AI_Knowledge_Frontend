@@ -25,10 +25,12 @@ const ChatItem = ({
       className="
         group
         cursor-pointer
+        gap-3
         rounded-lg
         p-3
-        transition
-        hover:bg-slate-800
+        transition-colors 
+        duration-200
+        hover:bg-background
       "
       onClick={() =>
         onSelectChat(chat)
@@ -38,34 +40,35 @@ const ChatItem = ({
 
         <div className="
           flex
-          h-9
-          w-9
+          h-10
+          w-10
           shrink-0
           items-center
           justify-center
           rounded-lg
-          bg-slate-800
+          bg-background
+          border-border
         ">
           <MessageSquare
             size={17}
-            className="text-slate-300"
+            className="text-text-secondary"
           />
         </div>
 
         <div className="min-w-0 flex-1">
 
-          <h3 className="truncate text-sm font-medium text-white">
+          <h3 className="truncate text-sm font-medium text-text-primary">
             {chat.title}
           </h3>
 
-          <p className="mt-1 truncate text-xs text-slate-500">
+          <p className="mt-1 truncate text-xs text-text-secondary">
             {lastMessage?.content ??
               "Sin mensajes"}
           </p>
 
         </div>
 
-        <div className="opacity-0 transition group-hover:opacity-100">
+        <div className="">
           <ChatActions
             onRename={() =>
               onRename(chat)

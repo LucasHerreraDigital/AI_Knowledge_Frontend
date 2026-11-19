@@ -30,11 +30,11 @@ const ChatInput = ({
   };
 
   return (
-    <div className="shrink-0 border-t border-slate-800 p-4">
+    <div className="shrink-0 border-t border-border p-4 bg-background">
 
       <form
         onSubmit={handleSubmit}
-        className="mx-auto flex max-w-4xl items-center gap-3 rounded-xl border border-slate-700 bg-slate-900 p-3"
+        className="mx-auto flex max-w-4xl items-center gap-3 rounded-xl border border-border bg-background p-3"
       >
         <textarea
           value={message}
@@ -53,7 +53,7 @@ const ChatInput = ({
           disabled={loading}
           rows={1}
           placeholder="Escribí una pregunta..."
-          className="flex-1 resize-none bg-transparent text-sm text-white outline-none placeholder:text-slate-500"
+          className="flex-1 resize-none bg-background text-sm text-text-primary outline-none placeholder:text-slate-500"
         />
 
         <button
@@ -62,7 +62,7 @@ const ChatInput = ({
             loading ||
             !message.trim()
           }
-          className="flex h-9 w-9 items-center justify-center rounded-lg bg-indigo-600 text-white hover:bg-indigo-500 disabled:opacity-50"
+          className="flex h-9 w-9 items-center justify-center rounded-lg bg-indigo-600 text-white hover:bg-indigo-500 "
         >
           <Send size={17} />
         </button>

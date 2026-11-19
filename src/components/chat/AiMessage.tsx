@@ -16,29 +16,25 @@ const AIMessage = ({
       <div className="max-w-[80%] w-full">
 
         <div className="mb-2 flex items-center gap-2">
-          <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-violet-950 text-xs font-semibold text-white">
+          <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-indigo-600 text-xs font-semibold text-white">
             AI
           </div>
-
-          <span className="text-xs font-medium text-slate-400">
-            AI Knowledge
-          </span>
         </div>
 
         {/* Respuesta */}
-        <div className="rounded-2xl rounded-tl-md border border-slate-800 bg-[#0B1120] px-4 py-3">
-          <p className="text-sm leading-relaxed text-slate-200 whitespace-pre-wrap">
+        <div className="rounded-2xl rounded-tl-md py-3">
+          <p className="text-sm leading-relaxed text-text-primary whitespace-pre-wrap">
             {message.content}
           </p>
         </div>
 
         {/* Fuentes */}
         {message.sources.length > 0 && (
-          <div className="mt-3">
+          <div className="">
             <button
               type="button"
               onClick={() => setShowSources((prev) => !prev)}
-              className="flex items-center gap-2 text-xs font-medium text-violet-400 hover:text-violet-300 transition-colors"
+              className="flex items-center gap-2 text-xs font-medium text-indigo-600 hover:text-indigo-400 transition-colors"
             >
               <span>
                 {showSources ? "Ocultar fuentes" : "Ver fuentes"}
@@ -58,19 +54,19 @@ const AIMessage = ({
                 {message.sources.map((source) => (
                   <div
                     key={source.id}
-                    className="rounded-xl border border-slate-800 bg-[#0B1120] p-3"
+                    className="rounded-xl border border-border p-3"
                   >
                     <div className="flex flex-wrap items-center justify-between gap-2">
-                      <span className="text-sm font-medium text-slate-200">
+                      <span className="text-sm font-medium text-text-primary">
                         {source.documentName}
                       </span>
 
-                      <span className="rounded-md bg-violet-950/60 px-2 py-1 text-xs text-violet-300">
+                      <span className="rounded-md bg-indigo-600 px-2 py-1 text-xs text-white">
                         Página {source.pageNumber ?? "Desconocida"}
                       </span>
                     </div>
 
-                    <p className="mt-2 text-xs leading-relaxed text-slate-400 whitespace-pre-wrap">
+                    <p className="mt-2 text-xs leading-relaxed text-text-secondary whitespace-pre-wrap">
                       {source.content}
                     </p>
                   </div>

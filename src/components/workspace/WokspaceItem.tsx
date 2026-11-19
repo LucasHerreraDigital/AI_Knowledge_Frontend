@@ -20,8 +20,8 @@ const WorkspaceItem = ({
     <div className={`flex w-full items-center gap-3 rounded-lg border px-4 py-3 transition
       ${
         active
-          ? "border-indigo-500/30 bg-indigo-500/10 text-white"
-          : "border-transparent text-slate-400 hover:bg-slate-800 hover:text-white"
+          ? "border-indigo-500/30 bg-indigo-500/20 text-white"
+          : "border-transparent text-text-secondary hover:bg-indigo-800/15 hover:text-white"
       }
     `}>
       <button
@@ -30,27 +30,27 @@ const WorkspaceItem = ({
         className="flex min-w-0 flex-1 items-center gap-3 text-left"
       >
         <div className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-lg font-semibold text-white transition
-          ${active ? "bg-indigo-600" : "bg-violet-950"}
+          ${active ? "bg-indigo-600" : "bg-indigo-800  "}
         `}>
           {workspace.name.charAt(0).toUpperCase()}
         </div>
 
         <div className="min-w-0 flex-1">
           <p className={`truncate font-medium ${
-            active ? "text-indigo-300" : "text-white"
+            active ? "text-text-secondary" : "text-text-primary"
           }`}>
             {workspace.name}
           </p>
 
           <p className={`text-xs ${
-            active ? "text-indigo-400/70" : "text-slate-500"
+            active ? "text-text-secondary" : "text-text-secondary"
           }`}>
             {workspace._count.documents} documentos
           </p>
         </div>
 
         {active && (
-          <div className="h-2 w-2 shrink-0 rounded-full bg-indigo-400" />
+          <div className="h-2 w-2 shrink-0 rounded-full bg-indigo-600" />
         )}
       </button>
 

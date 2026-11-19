@@ -12,14 +12,14 @@ const ChatHeader = ({
   onDelete,
 }: ChatHeaderProps) => {
   return (
-    <header className="flex h-16 shrink-0 items-center justify-between border-b border-slate-800 px-6">
+    <header className="flex h-16 shrink-0 items-center justify-between border-b border-border bg-background px-6">
 
       <div className="min-w-0">
-        <h2 className="truncate font-semibold text-white">
+        <h2 className="truncate font-semibold text-text-primary">
           {title}
         </h2>
 
-        <p className="text-xs text-slate-500">
+        <p className="text-xs text-text-secondary">
           Conversación
         </p>
       </div>

@@ -48,7 +48,7 @@ const WorkspacePanel = ({
   },[workspace.id])
 
   return (
-    <aside className="flex h-full w-[380px] shrink-0 flex-col overflow-hidden border-r border-slate-800 bg-[#0B1120]">
+    <aside className="flex h-full w-[380px] shrink-0 flex-col overflow-hidden border-r border-border bg-surface transition-colors">
       <section className="flex min-h-0 flex-1 flex-col overflow-hidden">
         <WorkspaceDocuments
           workspaceId={workspace.id}
@@ -58,7 +58,7 @@ const WorkspacePanel = ({
         />
       </section>
 
-      <section className="flex min-h-0 flex-1 flex-col overflow-hidden border-t border-slate-800">
+      <section className="flex min-h-0 flex-1 flex-col overflow-hidden border-t border-border">
         <WorkspaceChats
           workspaceId={workspace.id}
           chats={workspaceChats}

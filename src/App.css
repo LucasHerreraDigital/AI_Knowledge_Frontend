@@ -1,1 +1,29 @@
 @import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* Tema claro */
+:root {
+  --app-background: #f8fafc;
+  --app-surface: #ffffff;
+  --app-border: #d3d3d3;
+  --app-text-primary: #0f172a;
+  --app-text-secondary: #64748b;
+}
+
+/* Tema oscuro */
+.dark {
+  --app-background: #0f172a;
+  --app-surface: #0b1120;
+  --app-border: #1e293b;
+  --app-text-primary: #f1f5f9;
+  --app-text-secondary: #94a3b8;
+}
+
+@theme inline {
+  --color-background: var(--app-background);
+  --color-surface: var(--app-surface);
+  --color-border: var(--app-border);
+  --color-text-primary: var(--app-text-primary);
+  --color-text-secondary: var(--app-text-secondary);
+}

@@ -17,7 +17,7 @@ const ChatList = ({
 }: ChatListProps) => {
   if (chats.length === 0) {
     return (
-      <div className="flex h-full items-center justify-center text-sm text-slate-500">
+      <div className="flex h-full items-center justify-center text-sm text-text-secondary">
         No hay chats.
       </div>
     );

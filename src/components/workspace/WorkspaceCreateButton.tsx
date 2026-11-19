@@ -16,15 +16,16 @@ const WorkspaceCreateButton = ({
         items-center
         gap-1.5
         rounded-md
-        bg-slate-800
+        bg-indigo-600
         px-3
         py-1.5
         text-sm
         font-medium
-        text-slate-300
+        text-white
         transition
-        hover:bg-slate-700
+        hover:bg-indigo-400
         hover:text-white
+        cursor-pointer
       "
     >
       <Plus size={15} />

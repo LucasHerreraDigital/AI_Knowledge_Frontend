@@ -14,7 +14,7 @@ const Header = ({ workspace }: HeaderProps) => {
 
 
   return (
-    <header className="flex h-16 items-center border-b border-slate-800 bg-[#0B1120] px-6">
+    <header className="flex h-16 items-center border-b border-border bg-background px-6">
 
       {/* Workspace */}
       {workspace ? (
@@ -22,7 +22,7 @@ const Header = ({ workspace }: HeaderProps) => {
       ) : (
         <div>
 
-          <p className="text-xs text-slate-500">
+          <p className="text-xs text-text-secondary">
             Sin workspace seleccionado
           </p>
         </div>

@@ -27,8 +27,9 @@ const DocumentItem = ({
         gap-3
         rounded-lg
         p-3
-        transition
-        hover:bg-slate-800
+        transition-colors 
+        duration-200
+        hover:bg-background
       "
     >
       {/* Icono */}
@@ -41,23 +42,24 @@ const DocumentItem = ({
           items-center
           justify-center
           rounded-lg
-          bg-slate-800
+          bg-background
+          border-border
         "
       >
         <FileText
           size={19}
-          className="text-slate-300"
+          className="text-text-secondary"
         />
       </div>
 
       {/* Información */}
       <div className="min-w-0 flex-1">
 
-        <h3 className="truncate text-sm font-medium text-white">
+        <h3 className="truncate text-sm font-medium text-text-primary">
           {document.name}
         </h3>
 
-        <p className="mt-1 text-xs text-slate-500">
+        <p className="mt-1 text-xs text-text-secondary">
           {formatFileSize(document.size)}
         </p>
 
@@ -69,7 +71,7 @@ const DocumentItem = ({
       />
 
       {/* Acciones */}
-      <div className="opacity-0 transition group-hover:opacity-100">
+      <div className="">
         <DocumentActions
           onView={() => onView?.(document)}
           onDownload={() => onDownload?.(document)}
